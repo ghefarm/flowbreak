@@ -1,0 +1,75 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Electron/React/Vite build artifacts
+dist/
+dist-ssr/
+dist-electron/
+release/
+*.tsbuildinfo
+
+# Exclude build outputs and installers
+*.exe
+*.dll
+*.blockmap
+*.asar
+*.AppImage
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.snap
+*.yml
+*.yaml
+
+# Exclude macOS/Linux/Windows system files
+Thumbs.db
+ehthumbs.db
+Icon?
+.Spotlight-V100
+.Trashes
+__MACOSX/
+
+# Exclude test coverage and debug
+coverage/
+*.lcov
+debug.log
+
+# Exclude environment files
+.env
+.env.*
+
+# License signing keys — never commit
+*.pem
+license-private*
+.flowbreak-keys/
+
+# Personal/local-only docs (build notes, etc.)
+README.local.md
+
+# Exclude IDE settings
+.idea/
+.vscode/
+.history/

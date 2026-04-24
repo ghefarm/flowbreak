@@ -1,0 +1,107 @@
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  color: #e7ecf4;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.toast-root {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, #1a2237, #0f1420);
+  border: 1px solid #2a3548;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8db7ff;
+  box-shadow: 0 0 10px rgba(141, 183, 255, 0.8);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.toast-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #c5cfe0;
+  flex: 1;
+}
+
+.toast-countdown {
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8db7ff;
+}
+
+.toast-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #9ca8bd;
+}
+
+.toast-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.toast-btn {
+  flex: 1;
+  background: transparent;
+  color: #c5cfe0;
+  border: 1px solid #2a3548;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.toast-btn:hover {
+  color: #e7ecf4;
+  border-color: #4a5d7c;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.toast-btn-primary {
+  background: #3a68b8;
+  border-color: #4a78c8;
+  color: #fff;
+}
+
+.toast-btn-primary:hover {
+  background: #4a78c8;
+  border-color: #5c8ad8;
+}
