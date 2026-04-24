@@ -23,7 +23,7 @@ FlowBreak sits quietly in your system tray, nudges you every so often to stand u
 - **Live settings:** change any value in Settings and it applies immediately — no restart.
 - **Single-instance lock:** launching FlowBreak twice focuses the running instance instead of spawning a second tray icon.
 
-### Pro — $4.99, one-time
+### Pro — $ Pay/Donate, one-time
 
 - **Custom video playback:** paste a YouTube URL in Settings and FlowBreak plays it during the break instead of showing a movement from the library. Handy if you're following a specific physiotherapist's routine on YouTube.
 
