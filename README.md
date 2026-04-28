@@ -6,7 +6,8 @@ FlowBreak sits quietly in your system tray, nudges you every so often to stand u
 
 > **Status:** v0.1 (early and usable). Windows and Linux builds are available; macOS is not yet shipped.
 
-> **Built with AI assistance:** FlowBreak was developed in collaboration with [Claude Code](https://claude.com/claude-code) (Anthropic's AI coding assistant). This is my first public release of an application produced primarily through AI-assisted development, shared as an open experiment in how this way of building software evolves.
+> **Built with AI assistance:** FlowBreak was developed in collaboration with multiple AIs (Manus, CoPilot and Claude Code), out of curiosity and to some degree as a research how they differ in output and which model is better for which needs (market research, Coding, Review). I found, that Manus is the best in "market research, automation and conception"; claude domintaed with large contexts, especially by code reviews.
+> This is my first public release of an application produced primarily through AI-assisted development, shared as an open experiment in how this way of building software evolves.
 
 ---
 
