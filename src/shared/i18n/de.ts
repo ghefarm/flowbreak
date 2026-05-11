@@ -7,7 +7,8 @@ export const de: Record<string, string> = {
   'settings.section.language': 'Sprache',
   'settings.section.timing': 'Zeiten',
   'settings.section.graceSnooze': 'Vorlauf & Aufschieben',
-  'settings.section.pro': 'FlowBreak Pro',
+  'settings.section.video': 'Eigenes Pausen-Video',
+  'settings.section.support': 'FlowBreak unterstützen',
   'settings.section.library': 'Übungsbibliothek',
 
   'settings.language.label': 'Sprache der Oberfläche',
@@ -31,23 +32,14 @@ export const de: Record<string, string> = {
   'settings.unit.minutes': 'Minuten',
   'settings.unit.seconds': 'Sekunden',
 
-  'settings.pro.badge': 'Pro',
-  'settings.pro.statusActive': 'Aktiv',
-  'settings.pro.activatedOn': 'Aktiviert am {{date}}. Danke für deine Unterstützung von FlowBreak.',
-  'settings.pro.deactivate': 'Auf diesem Gerät deaktivieren',
-  'settings.pro.intro': 'Freischalten: eigene YouTube-Videos während der Pause — einmalig 4,99 $.',
-  'settings.pro.buyBtn': 'Pro kaufen — 4,99 $',
-  'settings.pro.buyHelp': 'Öffnet mansourtech.org/flowbreak in deinem Browser.',
-  'settings.pro.alreadyHaveKey': 'Du hast bereits einen Lizenzschlüssel?',
-  'settings.pro.keyPlaceholder': 'Lizenzschlüssel hier einfügen',
-  'settings.pro.activate': 'Aktivieren',
-  'settings.pro.activating': 'Aktiviere…',
-  'settings.pro.youtubeLabel': 'Eigene YouTube-URL',
-  'settings.pro.youtubeHelp.locked': 'Aktiviere Pro, um während der Pause dein eigenes YouTube-Video abzuspielen.',
-  'settings.pro.youtubeHelp.valid': 'Wird während der Pause anstelle einer Übung aus der Bibliothek abgespielt.',
-  'settings.pro.youtubeHelp.invalid': 'Keine erkannte YouTube-URL — die Pause greift auf die Übungsbibliothek zurück.',
+  'settings.video.label': 'Eigene YouTube-URL',
+  'settings.video.help.valid': 'Wird während der Pause anstelle einer Übung aus der Bibliothek abgespielt. Feld leer lassen, um die mitgelieferten Übungen zu nutzen.',
+  'settings.video.help.invalid': 'Keine erkannte YouTube-URL — die Pause greift auf die Übungsbibliothek zurück.',
 
-  'settings.library.count': '{{count}} Übungen in der kostenlosen Version enthalten.',
+  'settings.support.body': 'FlowBreak ist kostenlos und Open Source. Wenn es dir hilft, freue ich mich über eine kleine Spende.',
+  'settings.support.donateBtn': 'Spenden',
+
+  'settings.library.count': '{{count}} Übungen in FlowBreak enthalten.',
 
   'break.yourMovement': 'Deine Übung',
   'break.iframeTitle': 'Pausen-Video',
@@ -75,7 +67,4 @@ export const de: Record<string, string> = {
   'tray.tooltip.preBreak': 'FlowBreak — Pause beginnt in {{time}}',
   'tray.tooltip.counting': 'FlowBreak — {{time}} bis zur nächsten Pause',
   'tray.tooltip.countingPaused': 'FlowBreak — pausiert, {{time}} bis zur nächsten Pause',
-
-  'license.error.empty': 'Bitte einen Lizenzschlüssel eingeben.',
-  'license.error.invalid': 'Dieser Lizenzschlüssel ist ungültig oder nicht für FlowBreak Pro.',
 }

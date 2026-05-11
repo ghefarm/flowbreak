@@ -4,7 +4,7 @@ A gentle break reminder for developers with shoulder, neck, and back issues.
 
 FlowBreak sits quietly in your system tray, nudges you every so often to stand up and move, and gets out of your way the rest of the time. It detects when you step away from the keyboard and doesn't count that time against your break interval (so you get reminded when you actually need it, not after a long lunch).
 
-> **Status:** v0.1 (early and usable). Windows and Linux builds are available; macOS is not yet shipped.
+> **Status:** v0.2 (early and usable, MIT-licensed). Windows and Linux builds are available; macOS is not yet shipped.
 
 > **Built with AI assistance:** FlowBreak was developed in collaboration with multiple AIs (Manus, CoPilot and Claude Code), out of curiosity and to some degree as a research how they differ in output and which model is better for which needs (market research, Coding, Review). I found, that Manus is the best in "market research, automation and conception"; claude domintaed with large contexts, especially by code reviews.
 > This is my first public release of an application produced primarily through AI-assisted development, shared as an open experiment in how this way of building software evolves.
@@ -13,22 +13,15 @@ FlowBreak sits quietly in your system tray, nudges you every so often to stand u
 
 ## Features
 
-### Core (free)
-
 - **Tray-resident timer** with a live countdown in the tooltip.
 - **Idle-aware:** if you're away from the keyboard longer than the idle threshold, the countdown pauses — you won't get a break reminder the moment you sit back down.
 - **Grace period + snooze:** a corner toast precedes every break with *Start now* and *Snooze* buttons, so you're never yanked out of deep focus.
 - **Break window:** fullscreen (taskbar stays accessible), dark, distraction-free. Shows one movement from the built-in library with step-by-step instructions.
 - **10-movement library** covering shoulder, neck, upper-back, and chest stretches.
+- **Custom YouTube playback:** paste a YouTube URL in Settings and FlowBreak plays it during the break instead of showing a movement from the library. Handy if you're following a specific physiotherapist's routine on YouTube.
 - **Localized UI:** English, Deutsch, العربية (auto-detected from your system).
 - **Live settings:** change any value in Settings and it applies immediately — no restart.
 - **Single-instance lock:** launching FlowBreak twice focuses the running instance instead of spawning a second tray icon.
-
-### Pro — $ Pay/Donate, one-time
-
-- **Custom video playback:** paste a YouTube URL in Settings and FlowBreak plays it during the break instead of showing a movement from the library. Handy if you're following a specific physiotherapist's routine on YouTube.
-
-Buy a license at **[mansourtech.org/flowbreak](https://mansourtech.org/flowbreak)** and activate it from the *FlowBreak Pro* section in Settings. One-time purchase, no subscription.
 
 ---
 
@@ -47,7 +40,7 @@ Buy a license at **[mansourtech.org/flowbreak](https://mansourtech.org/flowbreak
 1. Launch FlowBreak. A clock icon appears in your system tray.
 2. Keep working. FlowBreak ticks down in the background and shows a corner toast when a break is due.
 3. Accept, snooze, or let the toast run out → the break window takes over for the duration you set.
-4. To tweak timings, change the language, or activate Pro, right-click the tray icon → *Settings…*.
+4. To tweak timings or change the language, right-click the tray icon → *Settings…*.
 
 ### Settings at a glance
 
@@ -77,15 +70,36 @@ During the grace period the menu changes to offer *Start now* and *Snooze N min*
 
 ---
 
+## Build from source
+
+Prerequisites: **Node 18+** and **npm**. On Linux you also need the usual Electron build deps (`fakeroot`, `dpkg`); on Windows you need nothing extra; macOS builds require a macOS host.
+
+```bash
+git clone https://github.com/ghefarm/flowbreak.git
+cd flowbreak
+npm install
+```
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Vite dev server + Electron with hot reload. |
+| `npm run build` | Type-check, bundle, and package an installer for your host OS (Windows = NSIS, macOS = DMG). |
+| `npm run build:linux` | Package a Linux `.AppImage`. |
+| `npm run lint` | ESLint (zero-warnings policy). |
+
+Installers land in `release/<version>/`.
+
+---
+
 ## Support
 
+FlowBreak is free and open source. If it helps you, a small donation keeps it going: **[mansourtech.org/flowbreak](https://mansourtech.org/flowbreak)**.
+
 - **Bug reports / feature requests:** [open an issue](https://github.com/ghefarm/flowbreak/issues).
-- **Licensing, Pro access, or any other inquiry:** **support@mansourtech.org**
+- **Other inquiries:** **support@mansourtech.org**
 
 ---
 
 ## License
 
-Proprietary. Source is published for reference and evaluation only — you may not build, modify, redistribute, or reuse any part of this repository without written permission. See [LICENSE](LICENSE) for the full text.
-
-Copyright © 2026 MansourTech. All rights reserved.
+MIT — see [LICENSE](LICENSE). Fork, modify, redistribute, and use commercially as you like; just keep the copyright notice.

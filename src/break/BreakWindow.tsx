@@ -9,7 +9,6 @@ type Settings = {
   intervalMinutes: number
   breakDurationSeconds: number
   idleThresholdMinutes: number
-  proEnabled: boolean
   customVideoUrl: string
 }
 
@@ -56,7 +55,7 @@ export function BreakWindow() {
     return () => offTick()
   }, [])
 
-  const videoEmbed = settings?.proEnabled && settings.customVideoUrl
+  const videoEmbed = settings?.customVideoUrl
     ? toYoutubeEmbed(settings.customVideoUrl)
     : null
 
@@ -66,7 +65,7 @@ export function BreakWindow() {
 
       {videoEmbed ? (
         <>
-          <p className="break-focus">{t('break.yourMovement')}<span className="break-pro-badge">{t('settings.pro.badge')}</span></p>
+          <p className="break-focus">{t('break.yourMovement')}</p>
           <iframe
             className="break-video"
             src={videoEmbed}

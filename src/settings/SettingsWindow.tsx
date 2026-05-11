@@ -3,12 +3,6 @@ import { MOVEMENTS } from '../shared/movements'
 import { translate, SUPPORTED_LOCALES, isRTL, type Locale, type LocaleSetting } from '../shared/i18n'
 import './settings.css'
 
-type LicenseRecord = {
-  key: string
-  email: string
-  activatedAt: number
-}
-
 type Settings = {
   intervalMinutes: number
   breakDurationSeconds: number
@@ -16,12 +10,8 @@ type Settings = {
   graceSeconds: number
   snoozeMinutes: number
   customVideoUrl: string
-  license: LicenseRecord | null
   locale: LocaleSetting
-  proEnabled: boolean
 }
-
-type WritableSettingsPatch = Partial<Omit<Settings, 'proEnabled' | 'license'>>
 
 type SaveState = 'idle' | 'saving' | 'saved'
 
@@ -40,17 +30,10 @@ function isValidYoutubeUrl(url: string): boolean {
   }
 }
 
-function formatActivatedDate(ts: number, locale: Locale): string {
-  return new Date(ts).toLocaleDateString(locale)
-}
-
 export function SettingsWindow() {
   const initialLocale = window.flowbreak.i18n.locale
   const [settings, setSettings] = useState<Settings | null>(null)
   const [saveState, setSaveState] = useState<SaveState>('idle')
-  const [licenseInput, setLicenseInput] = useState('')
-  const [activationError, setActivationError] = useState<string | null>(null)
-  const [activating, setActivating] = useState(false)
 
   useEffect(() => {
     void window.flowbreak.settings.get().then(setSettings)
@@ -61,19 +44,12 @@ export function SettingsWindow() {
     return <div className="settings-root"><p>{t('settings.save.saving')}</p></div>
   }
 
-  // Effective renderer locale: resolve 'auto' against the one the preload gave us.
   const activeLocale: Locale = settings.locale === 'auto' ? initialLocale : settings.locale
   const t = (key: string, params?: Record<string, string | number>) => translate(activeLocale, key, params)
 
   const urlValid = isValidYoutubeUrl(settings.customVideoUrl)
 
-  function youtubeFieldMessage(proEnabled: boolean, urlValid: boolean): string {
-    if (!proEnabled) return t('settings.pro.youtubeHelp.locked')
-    if (!urlValid) return t('settings.pro.youtubeHelp.invalid')
-    return t('settings.pro.youtubeHelp.valid')
-  }
-
-  async function save(patch: WritableSettingsPatch) {
+  async function save(patch: Partial<Settings>) {
     setSaveState('saving')
     const next = await window.flowbreak.settings.update(patch)
     setSettings(next)
@@ -83,31 +59,7 @@ export function SettingsWindow() {
 
   async function changeLocale(next: LocaleSetting) {
     await window.flowbreak.settings.update({ locale: next })
-    // Reload so preload fetches the fresh locale synchronously and dir flips cleanly.
     window.location.reload()
-  }
-
-  async function activate() {
-    setActivationError(null)
-    setActivating(true)
-    const result = await window.flowbreak.license.activate(licenseInput)
-    setActivating(false)
-    if (result.ok) {
-      setSettings(result.settings)
-      setLicenseInput('')
-    } else {
-      setActivationError(result.error)
-    }
-  }
-
-  async function deactivate() {
-    const next = await window.flowbreak.license.deactivate()
-    setSettings(next)
-    setActivationError(null)
-  }
-
-  function buyPro() {
-    window.flowbreak.license.openPurchase()
   }
 
   return (
@@ -222,69 +174,32 @@ export function SettingsWindow() {
       </section>
 
       <section className="settings-section">
-        <h2>{t('settings.section.pro')} <span className="pro-badge">{t('settings.pro.badge')}</span></h2>
-
-        {settings.proEnabled && settings.license ? (
-          <div className="license-status license-status-active">
-            <div className="license-status-row">
-              <span className="license-status-badge">{t('settings.pro.statusActive')}</span>
-              <span className="license-status-email">{settings.license.email}</span>
-            </div>
-            <small>{t('settings.pro.activatedOn', { date: formatActivatedDate(settings.license.activatedAt, activeLocale) })}</small>
-            <button className="license-deactivate" type="button" onClick={() => void deactivate()}>
-              {t('settings.pro.deactivate')}
-            </button>
-          </div>
-        ) : (
-          <div className="license-activate">
-            <p className="license-intro">{t('settings.pro.intro')}</p>
-            <div className="license-buy-row">
-              <button className="license-buy-btn" type="button" onClick={buyPro}>
-                {t('settings.pro.buyBtn')}
-              </button>
-              <small>{t('settings.pro.buyHelp')}</small>
-            </div>
-            <label className="settings-field license-key-field">
-              <span>{t('settings.pro.alreadyHaveKey')}</span>
-              <textarea
-                className="license-key-input"
-                placeholder={t('settings.pro.keyPlaceholder')}
-                rows={3}
-                value={licenseInput}
-                onChange={(e) => {
-                  setLicenseInput(e.target.value)
-                  if (activationError) setActivationError(null)
-                }}
-              />
-              <div className="license-activate-row">
-                <button
-                  type="button"
-                  className="license-activate-btn"
-                  disabled={activating || !licenseInput.trim()}
-                  onClick={() => void activate()}
-                >
-                  {activating ? t('settings.pro.activating') : t('settings.pro.activate')}
-                </button>
-                {activationError && <span className="license-error">{activationError}</span>}
-              </div>
-            </label>
-          </div>
-        )}
-
-        <label className={`settings-field license-video-field ${settings.proEnabled ? '' : 'disabled'}`}>
-          <span>{t('settings.pro.youtubeLabel')}</span>
+        <h2>{t('settings.section.video')}</h2>
+        <label className="settings-field">
+          <span>{t('settings.video.label')}</span>
           <div className="field-control">
             <input
               type="text"
               placeholder="https://www.youtube.com/watch?v=…"
               value={settings.customVideoUrl}
-              disabled={!settings.proEnabled}
               onChange={(e) => save({ customVideoUrl: e.target.value })}
               className={urlValid ? '' : 'invalid'}
             />
           </div>
-          <small>{youtubeFieldMessage(settings.proEnabled, urlValid)}</small>
+          <small>{urlValid ? t('settings.video.help.valid') : t('settings.video.help.invalid')}</small>
         </label>
+      </section>
+
+      <section className="settings-section">
+        <h2>{t('settings.section.support')}</h2>
+        <p className="support-body">{t('settings.support.body')}</p>
+        <button
+          type="button"
+          className="donate-btn"
+          onClick={() => window.flowbreak.donate.open()}
+        >
+          {t('settings.support.donateBtn')}
+        </button>
       </section>
 
       <section className="settings-section">

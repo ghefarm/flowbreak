@@ -35,11 +35,6 @@ type TimerState = {
   onBreak: boolean
   idleSec: number
 }
-type LicenseRecord = {
-  key: string
-  email: string
-  activatedAt: number
-}
 type Locale = 'en' | 'de' | 'ar'
 type LocaleSetting = 'auto' | Locale
 type Settings = {
@@ -49,12 +44,8 @@ type Settings = {
   graceSeconds: number
   snoozeMinutes: number
   customVideoUrl: string
-  license: LicenseRecord | null
   locale: LocaleSetting
-  proEnabled: boolean
 }
-type ActivationResult = { ok: true; settings: Settings } | { ok: false; error: string }
-type WritableSettingsPatch = Partial<Omit<Settings, 'proEnabled' | 'license'>>
 
 function subscribe(channel: string, cb: (...args: unknown[]) => void): Unsubscribe {
   const wrapped = (_e: Electron.IpcRendererEvent, ...a: unknown[]) => cb(...a)
@@ -81,14 +72,11 @@ const flowbreak = {
   },
   settings: {
     get: (): Promise<Settings> => ipcRenderer.invoke('settings:get'),
-    update: (patch: WritableSettingsPatch): Promise<Settings> =>
+    update: (patch: Partial<Settings>): Promise<Settings> =>
       ipcRenderer.invoke('settings:update', patch),
   },
-  license: {
-    activate: (key: string): Promise<ActivationResult> =>
-      ipcRenderer.invoke('license:activate', key),
-    deactivate: (): Promise<Settings> => ipcRenderer.invoke('license:deactivate'),
-    openPurchase: () => ipcRenderer.send('license:openPurchase'),
+  donate: {
+    open: () => ipcRenderer.send('donate:open'),
   },
   i18n: ipcRenderer.sendSync('i18n:getLocale') as { locale: Locale; dir: 'ltr' | 'rtl' },
 }

@@ -8,7 +8,8 @@ export const en: Record<string, string> = {
   'settings.section.language': 'Language',
   'settings.section.timing': 'Timing',
   'settings.section.graceSnooze': 'Grace & snooze',
-  'settings.section.pro': 'FlowBreak Pro',
+  'settings.section.video': 'Custom break video',
+  'settings.section.support': 'Support FlowBreak',
   'settings.section.library': 'Movement library',
 
   'settings.language.label': 'Interface language',
@@ -32,23 +33,14 @@ export const en: Record<string, string> = {
   'settings.unit.minutes': 'minutes',
   'settings.unit.seconds': 'seconds',
 
-  'settings.pro.badge': 'Pro',
-  'settings.pro.statusActive': 'Active',
-  'settings.pro.activatedOn': 'Activated {{date}}. Thanks for supporting FlowBreak.',
-  'settings.pro.deactivate': 'Deactivate on this device',
-  'settings.pro.intro': 'Unlock custom YouTube video playback during breaks — $4.99, one-time.',
-  'settings.pro.buyBtn': 'Buy Pro — $4.99',
-  'settings.pro.buyHelp': 'Opens mansourtech.org/flowbreak in your browser.',
-  'settings.pro.alreadyHaveKey': 'Already have a license key?',
-  'settings.pro.keyPlaceholder': 'Paste your license key here',
-  'settings.pro.activate': 'Activate',
-  'settings.pro.activating': 'Activating…',
-  'settings.pro.youtubeLabel': 'Custom YouTube URL',
-  'settings.pro.youtubeHelp.locked': 'Activate Pro to play your own YouTube video during breaks.',
-  'settings.pro.youtubeHelp.valid': 'Plays instead of a movement from the library during breaks.',
-  'settings.pro.youtubeHelp.invalid': 'Not a recognizable YouTube URL — breaks will fall back to the movement library.',
+  'settings.video.label': 'Custom YouTube URL',
+  'settings.video.help.valid': 'Plays instead of a movement from the library during breaks. Leave empty to use the bundled movements.',
+  'settings.video.help.invalid': 'Not a recognizable YouTube URL — breaks will fall back to the movement library.',
 
-  'settings.library.count': '{{count}} movements bundled with the free version.',
+  'settings.support.body': 'FlowBreak is free and open source. If it helps you, a small donation keeps it going.',
+  'settings.support.donateBtn': 'Donate',
+
+  'settings.library.count': '{{count}} movements bundled with FlowBreak.',
 
   // Break window
   'break.yourMovement': 'Your movement',
@@ -79,8 +71,4 @@ export const en: Record<string, string> = {
   'tray.tooltip.preBreak': 'FlowBreak — break starting in {{time}}',
   'tray.tooltip.counting': 'FlowBreak — {{time}} until next break',
   'tray.tooltip.countingPaused': 'FlowBreak — paused, {{time}} until next break',
-
-  // License errors (returned from main process)
-  'license.error.empty': 'Enter a license key.',
-  'license.error.invalid': 'This license key is invalid or not for FlowBreak Pro.',
 }

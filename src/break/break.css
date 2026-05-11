@@ -106,17 +106,3 @@ html, body, #root {
   color: #e7ecf4;
   border-color: #4a5d7c;
 }
-
-.break-pro-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: linear-gradient(135deg, #ffb347, #ff7e5f);
-  color: #1a0d00;
-  margin-inline-start: 8px;
-  vertical-align: middle;
-}

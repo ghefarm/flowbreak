@@ -7,7 +7,8 @@ export const ar: Record<string, string> = {
   'settings.section.language': 'اللغة',
   'settings.section.timing': 'التوقيت',
   'settings.section.graceSnooze': 'المهلة والتأجيل',
-  'settings.section.pro': 'FlowBreak Pro',
+  'settings.section.video': 'فيديو الاستراحة المخصص',
+  'settings.section.support': 'ادعم FlowBreak',
   'settings.section.library': 'مكتبة التمارين',
 
   'settings.language.label': 'لغة الواجهة',
@@ -31,23 +32,14 @@ export const ar: Record<string, string> = {
   'settings.unit.minutes': 'دقائق',
   'settings.unit.seconds': 'ثوانٍ',
 
-  'settings.pro.badge': 'Pro',
-  'settings.pro.statusActive': 'مُفعَّل',
-  'settings.pro.activatedOn': 'تم التفعيل بتاريخ {{date}}. شكرًا لدعمك FlowBreak.',
-  'settings.pro.deactivate': 'إلغاء التفعيل على هذا الجهاز',
-  'settings.pro.intro': 'افتح تشغيل فيديو YouTube مخصص أثناء الاستراحات — 4.99 دولار، دفعة واحدة.',
-  'settings.pro.buyBtn': 'شراء Pro — 4.99 دولار',
-  'settings.pro.buyHelp': 'يفتح mansourtech.org/flowbreak في متصفحك.',
-  'settings.pro.alreadyHaveKey': 'هل لديك مفتاح ترخيص بالفعل؟',
-  'settings.pro.keyPlaceholder': 'الصق مفتاح الترخيص هنا',
-  'settings.pro.activate': 'تفعيل',
-  'settings.pro.activating': 'جارٍ التفعيل…',
-  'settings.pro.youtubeLabel': 'رابط YouTube مخصص',
-  'settings.pro.youtubeHelp.locked': 'فعِّل Pro لتشغيل فيديو YouTube الخاص بك أثناء الاستراحات.',
-  'settings.pro.youtubeHelp.valid': 'سيُشغَّل بدلاً من تمرين من المكتبة أثناء الاستراحة.',
-  'settings.pro.youtubeHelp.invalid': 'رابط YouTube غير معروف — ستعود الاستراحة إلى مكتبة التمارين.',
+  'settings.video.label': 'رابط YouTube مخصص',
+  'settings.video.help.valid': 'سيُشغَّل بدلاً من تمرين من المكتبة أثناء الاستراحة. اترك الحقل فارغًا لاستخدام التمارين المضمَّنة.',
+  'settings.video.help.invalid': 'رابط YouTube غير معروف — ستعود الاستراحة إلى مكتبة التمارين.',
 
-  'settings.library.count': '{{count}} تمارين مضمّنة في الإصدار المجاني.',
+  'settings.support.body': 'FlowBreak مجاني ومفتوح المصدر. إذا كان مفيدًا لك، تبرّع صغير يساعد على استمراره.',
+  'settings.support.donateBtn': 'تبرَّع',
+
+  'settings.library.count': '{{count}} تمارين مضمّنة في FlowBreak.',
 
   'break.yourMovement': 'تمرينك',
   'break.iframeTitle': 'فيديو الاستراحة',
@@ -75,7 +67,4 @@ export const ar: Record<string, string> = {
   'tray.tooltip.preBreak': 'FlowBreak — الاستراحة تبدأ خلال {{time}}',
   'tray.tooltip.counting': 'FlowBreak — {{time}} حتى الاستراحة التالية',
   'tray.tooltip.countingPaused': 'FlowBreak — موقوف، {{time}} حتى الاستراحة التالية',
-
-  'license.error.empty': 'أدخل مفتاح الترخيص.',
-  'license.error.invalid': 'مفتاح الترخيص هذا غير صالح أو ليس لـ FlowBreak Pro.',
 }

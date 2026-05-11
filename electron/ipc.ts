@@ -11,12 +11,11 @@ import {
   takeBreakNow,
   timerEvents,
 } from './timer'
-import { getSettings, setLicense, updateSettings, type Settings } from './store'
-import { verifyLicenseKey } from './license'
-import { currentLocale, t } from './i18n'
+import { getSettings, updateSettings, type Settings } from './store'
+import { currentLocale } from './i18n'
 import { isRTL } from '../src/shared/i18n'
 
-const PURCHASE_URL = 'https://mansourtech.org/flowbreak'
+const DONATE_URL = 'https://mansourtech.org/flowbreak'
 
 export const IPC = {
   timerGetState: 'timer:getState',
@@ -34,17 +33,9 @@ export const IPC = {
   breakSnoozed: 'break:snoozed',
   settingsGet: 'settings:get',
   settingsUpdate: 'settings:update',
-  licenseActivate: 'license:activate',
-  licenseDeactivate: 'license:deactivate',
-  licenseOpenPurchase: 'license:openPurchase',
+  donateOpen: 'donate:open',
   i18nGetLocale: 'i18n:getLocale',
 } as const
-
-type WritableSettingsPatch = Partial<Omit<Settings, 'proEnabled' | 'license'>>
-
-export type ActivationResult =
-  | { ok: true; settings: Settings }
-  | { ok: false; error: string }
 
 export function registerIpc(): void {
   ipcMain.handle(IPC.timerGetState, () => getState())
@@ -57,33 +48,14 @@ export function registerIpc(): void {
   ipcMain.on(IPC.timerEndBreakNow, () => endBreakNow())
 
   ipcMain.handle(IPC.settingsGet, () => getSettings())
-  ipcMain.handle(IPC.settingsUpdate, (_e, patch: WritableSettingsPatch) => {
+  ipcMain.handle(IPC.settingsUpdate, (_e, patch: Partial<Settings>) => {
     const next = updateSettings(patch)
     onSettingsChanged()
     return next
   })
 
-  ipcMain.handle(IPC.licenseActivate, (_e, key: string): ActivationResult => {
-    if (typeof key !== 'string' || !key.trim()) {
-      return { ok: false, error: t('license.error.empty') }
-    }
-    const payload = verifyLicenseKey(key)
-    if (!payload) {
-      return { ok: false, error: t('license.error.invalid') }
-    }
-    const settings = setLicense({ key: key.trim(), email: payload.email, activatedAt: Date.now() })
-    onSettingsChanged()
-    return { ok: true, settings }
-  })
-
-  ipcMain.handle(IPC.licenseDeactivate, () => {
-    setLicense(null)
-    onSettingsChanged()
-    return getSettings()
-  })
-
-  ipcMain.on(IPC.licenseOpenPurchase, () => {
-    void shell.openExternal(PURCHASE_URL)
+  ipcMain.on(IPC.donateOpen, () => {
+    void shell.openExternal(DONATE_URL)
   })
 
   ipcMain.on(IPC.i18nGetLocale, (e) => {

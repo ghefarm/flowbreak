@@ -1,34 +1,27 @@
 import Store from 'electron-store'
-import { isLicenseRecordValid, type LicenseRecord } from './license'
 import type { LocaleSetting } from '../src/shared/i18n'
 
-type StoredSettings = {
+export type Settings = {
   intervalMinutes: number
   breakDurationSeconds: number
   idleThresholdMinutes: number
   graceSeconds: number
   snoozeMinutes: number
   customVideoUrl: string
-  license: LicenseRecord | null
   locale: LocaleSetting
 }
 
-export type Settings = StoredSettings & {
-  proEnabled: boolean
-}
-
-const defaults: StoredSettings = {
+const defaults: Settings = {
   intervalMinutes: 60,
   breakDurationSeconds: 60,
   idleThresholdMinutes: 10,
   graceSeconds: 5,
   snoozeMinutes: 5,
   customVideoUrl: '',
-  license: null,
   locale: 'auto',
 }
 
-export const store = new Store<StoredSettings>({ defaults })
+export const store = new Store<Settings>({ defaults })
 
 // Migrate legacy idleThresholdSeconds → idleThresholdMinutes (min 10 min).
 {
@@ -40,7 +33,7 @@ export const store = new Store<StoredSettings>({ defaults })
   }
 }
 
-function readStored(): StoredSettings {
+export function getSettings(): Settings {
   return {
     intervalMinutes: store.get('intervalMinutes'),
     breakDurationSeconds: store.get('breakDurationSeconds'),
@@ -48,26 +41,13 @@ function readStored(): StoredSettings {
     graceSeconds: store.get('graceSeconds'),
     snoozeMinutes: store.get('snoozeMinutes'),
     customVideoUrl: store.get('customVideoUrl'),
-    license: store.get('license'),
     locale: store.get('locale'),
   }
 }
 
-export function getSettings(): Settings {
-  const stored = readStored()
-  return { ...stored, proEnabled: isLicenseRecordValid(stored.license) }
-}
-
-type WritableSettings = Omit<StoredSettings, 'license'>
-
-export function updateSettings(patch: Partial<WritableSettings>): Settings {
-  for (const [k, v] of Object.entries(patch) as [keyof WritableSettings, WritableSettings[keyof WritableSettings]][]) {
+export function updateSettings(patch: Partial<Settings>): Settings {
+  for (const [k, v] of Object.entries(patch) as [keyof Settings, Settings[keyof Settings]][]) {
     if (v !== undefined) store.set(k, v as never)
   }
-  return getSettings()
-}
-
-export function setLicense(record: LicenseRecord | null): Settings {
-  store.set('license', record)
   return getSettings()
 }
