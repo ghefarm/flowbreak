@@ -1,11 +1,11 @@
 import { BrowserWindow, screen } from 'electron'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { appUrl } from './protocol'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
-const RENDERER_DIST = path.join(process.env.APP_ROOT ?? '', 'dist')
 
 function preloadPath(): string {
   return path.join(__dirname, 'preload.js')
@@ -17,7 +17,9 @@ function loadPage(win: BrowserWindow, page: 'index' | 'break' | 'prebreak'): voi
     const url = new URL(file, VITE_DEV_SERVER_URL.endsWith('/') ? VITE_DEV_SERVER_URL : `${VITE_DEV_SERVER_URL}/`).href
     void win.loadURL(url)
   } else {
-    void win.loadFile(path.join(RENDERER_DIST, file))
+    // Packaged: serve over the custom app:// scheme so the page has a real
+    // origin (lets YouTube embeds play; file:// is a null origin).
+    void win.loadURL(appUrl(file))
   }
 }
 

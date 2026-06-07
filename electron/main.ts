@@ -4,6 +4,7 @@ import path from 'node:path'
 import { initTray, destroyTray } from './tray'
 import { initTimer, timerEvents } from './timer'
 import { registerIpc } from './ipc'
+import { registerAppScheme, registerAppProtocol, enableYoutubeEmbeds } from './protocol'
 import {
   closeBreakWindow,
   closePreBreakWindow,
@@ -28,7 +29,16 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
 }
 
+// Register the custom scheme before `ready` (privileged schemes require this).
+if (!VITE_DEV_SERVER_URL) {
+  registerAppScheme()
+}
+
 app.whenReady().then(() => {
+  if (!VITE_DEV_SERVER_URL) {
+    registerAppProtocol(RENDERER_DIST)
+  }
+  enableYoutubeEmbeds()
   registerIpc()
   initTimer()
   initTray()

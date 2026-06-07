@@ -19,17 +19,31 @@ function formatMs(ms: number): string {
   return `${m}:${s}`
 }
 
+function embedSrc(id: string): string {
+  // mute=1 is required for autoplay to be allowed by the browser autoplay
+  // policy. We intentionally do NOT pass an `origin` param: the page runs on
+  // app:// (a non-web origin), which the YouTube player rejects (error 153).
+  // The main process rewrites the Referer to a valid https origin instead.
+  const params = new URLSearchParams({
+    autoplay: '1',
+    mute: '1',
+    rel: '0',
+    playsinline: '1',
+  })
+  return `https://www.youtube.com/embed/${id}?${params.toString()}`
+}
+
 function toYoutubeEmbed(url: string): string | null {
   try {
     const u = new URL(url)
     if (u.hostname === 'youtu.be') {
       const id = u.pathname.slice(1)
-      return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` : null
+      return id ? embedSrc(id) : null
     }
     if (u.hostname.endsWith('youtube.com')) {
       if (u.pathname === '/watch') {
         const id = u.searchParams.get('v')
-        return id ? `https://www.youtube.com/embed/${id}?autoplay=1&rel=0` : null
+        return id ? embedSrc(id) : null
       }
       if (u.pathname.startsWith('/embed/')) return url
     }
