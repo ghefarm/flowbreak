@@ -101,6 +101,11 @@ export function BreakWindow() {
                 loop
                 muted
                 playsInline
+                onError={(e) => {
+                  const el = e.currentTarget
+                  console.error('Movement video failed to load', el.src, el.error)
+                }}
+                onStalled={(e) => console.warn('Movement video stalled', e.currentTarget.src)}
               />
             )}
             <ol className="break-steps">

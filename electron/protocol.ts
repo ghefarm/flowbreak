@@ -1,5 +1,6 @@
 import { protocol, net, session } from 'electron'
 import path from 'node:path'
+import { existsSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 
 // Custom app scheme used in packaged builds instead of file://.
@@ -39,7 +40,22 @@ export function registerAppProtocol(rendererDist: string): void {
       return new Response('Forbidden', { status: 403 })
     }
 
-    return net.fetch(pathToFileURL(target).toString())
+    // Files under asarUnpack (e.g. movement videos) live as real files next
+    // to app.asar, not inside the archive itself. net.fetch()'s file://
+    // loader does not transparently redirect .asar/ reads into
+    // .asar.unpacked/ the way Node's fs does, so resolve it ourselves —
+    // otherwise byte-range reads for <video> playback silently fail.
+    const unpackedTarget = target.replace(
+      `${path.sep}app.asar${path.sep}`,
+      `${path.sep}app.asar.unpacked${path.sep}`,
+    )
+    const resolvedTarget = unpackedTarget !== target && existsSync(unpackedTarget)
+      ? unpackedTarget
+      : target
+
+    return net.fetch(pathToFileURL(resolvedTarget).toString(), {
+      headers: request.headers,
+    })
   })
 }
 

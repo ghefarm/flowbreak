@@ -3,6 +3,9 @@
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "appId": "FlowBreak.mansourtech.org",
   "asar": true,
+  "asarUnpack": [
+    "dist/movements/**/*"
+  ],
   "productName": "FlowBreak",
   "directories": {
     "output": "release/${version}"
