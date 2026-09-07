@@ -18,7 +18,7 @@ export const MOVEMENTS: Movement[] = [
       'Roll both shoulders slowly backward in a large circle.',
       'Do 10 rolls backward, then 10 rolls forward.',
     ],
-    videoUrl: './movements/shoulder-rolls.mp4',
+    videoUrl: './movements/shoulder-rolls.mp4?v=1',
   },
   {
     id: 'neck-tilts',
@@ -30,7 +30,7 @@ export const MOVEMENTS: Movement[] = [
       'Hold for 15 seconds, breathing steadily.',
       'Return to center, then repeat on the left side.',
     ],
-    videoUrl: './movements/neck-stretch.mp4',
+    videoUrl: './movements/neck-stretch.mp4?v=1',
   },
   {
     id: 'chest-opener',
@@ -42,7 +42,7 @@ export const MOVEMENTS: Movement[] = [
       'Straighten your arms, draw your shoulder blades down and together, lift your chest.',
       'Hold 20 seconds with slow breaths. Release, shake arms out, repeat once.',
     ],
-    videoUrl: './movements/chest-opener.mp4',
+    videoUrl: './movements/chest-opener.mp4?v=1',
   },
   {
     id: 'upper-trap',
@@ -54,7 +54,7 @@ export const MOVEMENTS: Movement[] = [
       'Gently guide your head toward your right shoulder.',
       'Hold 30 seconds per side — no forcing.',
     ],
-    videoUrl: './movements/upper-trap.mp4',
+    videoUrl: './movements/upper-trap.mp4?v=1',
   },
   {
     id: 'overhead-side-stretch',
@@ -66,7 +66,7 @@ export const MOVEMENTS: Movement[] = [
       'Lean gently to the left until you feel a stretch along your right side and upper back.',
       'Hold 20 seconds, return to center, then repeat on the other side.',
     ],
-    videoUrl: './movements/overhead-side-stretch.mp4',
+    videoUrl: './movements/overhead-side-stretch.mp4?v=1',
   },
   {
     id: 'cat-cow',
@@ -78,7 +78,7 @@ export const MOVEMENTS: Movement[] = [
       'Inhale: drop belly, lift chest and tailbone (cow).',
       'Exhale: round spine, tuck chin and tailbone (cat). Flow for 60 seconds.',
     ],
-    videoUrl: './movements/cat-cow.mp4',
+    videoUrl: './movements/cat-cow.mp4?v=1',
   },
   {
     id: 'seated-twist',
@@ -90,7 +90,7 @@ export const MOVEMENTS: Movement[] = [
       'Inhale to lengthen, exhale to twist gently to the left.',
       'Hold 30 seconds, then switch sides.',
     ],
-    videoUrl: './movements/seated-twist.mp4',
+    videoUrl: './movements/seated-twist.mp4?v=1',
   },
   {
     id: 'cross-body-shoulder',
@@ -102,7 +102,7 @@ export const MOVEMENTS: Movement[] = [
       'Use your left hand to gently press your right arm closer to your body.',
       'Hold 20 seconds, release, then repeat on the other side.',
     ],
-    videoUrl: './movements/cross-body-shoulder.mp4',
+    videoUrl: './movements/cross-body-shoulder.mp4?v=1',
   },
   {
     id: 'forward-fold',
@@ -114,7 +114,7 @@ export const MOVEMENTS: Movement[] = [
       'Hinge from the hips and fold forward, letting your head and arms hang heavy.',
       'Hold 30 seconds, breathing into your lower back. Roll up slowly to stand.',
     ],
-    videoUrl: './movements/forward-fold.mp4',
+    videoUrl: './movements/forward-fold.mp4?v=1',
   },
   {
     id: 'arm-swings',
@@ -126,7 +126,7 @@ export const MOVEMENTS: Movement[] = [
       'Swing both arms forward and up overhead, then continue back and down behind you in one smooth circle.',
       'Do 10 circles forward, then reverse direction for 10 backward.',
     ],
-    videoUrl: './movements/arm-swing.mp4',
+    videoUrl: './movements/arm-swing.mp4?v=1',
   },
 ]
 

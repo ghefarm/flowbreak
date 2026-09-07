@@ -2,6 +2,7 @@ import { BrowserWindow, screen } from 'electron'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { appUrl } from './protocol'
+import { getSettings } from './store'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -11,15 +12,35 @@ function preloadPath(): string {
   return path.join(__dirname, 'preload.js')
 }
 
+// Only read at call time (not module-load time): process.env.APP_ROOT is
+// set by main.ts's top-level code, which — due to bundling/import order —
+// has not necessarily run yet when this module is first evaluated.
+function rendererDist(): string {
+  return path.join(process.env.APP_ROOT ?? '', 'dist')
+}
+
 function loadPage(win: BrowserWindow, page: 'index' | 'break' | 'prebreak'): void {
   const file = page === 'index' ? 'index.html' : page === 'break' ? 'break.html' : 'prebreak.html'
   if (VITE_DEV_SERVER_URL) {
     const url = new URL(file, VITE_DEV_SERVER_URL.endsWith('/') ? VITE_DEV_SERVER_URL : `${VITE_DEV_SERVER_URL}/`).href
     void win.loadURL(url)
-  } else {
-    // Packaged: serve over the custom app:// scheme so the page has a real
-    // origin (lets YouTube embeds play; file:// is a null origin).
+    return
+  }
+
+  // The break window only needs the app:// origin when it's actually going
+  // to embed a YouTube iframe — YouTube rejects the null file:// origin.
+  // Every other case (including the default: a local movement video) loads
+  // the same way every window did before YouTube embeds existed: Electron's
+  // native loadFile() over file://. That's the proven-reliable path — our
+  // own app:// protocol.handle reimplementation turned out to unreliably
+  // serve the movement videos (empty response bodies for reasons that
+  // resisted several rounds of fixing), while native file:// just works,
+  // asar-packed or unpacked.
+  const needsRealOrigin = page === 'break' && !!getSettings().customVideoUrl
+  if (needsRealOrigin) {
     void win.loadURL(appUrl(file))
+  } else {
+    void win.loadFile(path.join(rendererDist(), file))
   }
 }
 
